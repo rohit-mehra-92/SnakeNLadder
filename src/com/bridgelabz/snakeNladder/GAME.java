@@ -7,6 +7,7 @@ public class GAME {
     final int WIN = 100;
     int position = 0;
     int previousPosition = 0;
+    int numberOfDiceRolls = 0;
 
     public int dieRoll() {
         return (int) (Math.random() * 6) + 1;
@@ -15,34 +16,35 @@ public class GAME {
     void StartGame() {
         while (position < WIN) {
             previousPosition = position;
-         System.out.println(" previous position " + previousPosition);
-
+//            System.out.println(" previous position " + previousPosition);
             int num = (int) Math.floor(Math.random() * 10) % 3;
             int value = dieRoll();
-          System.out.println("player rolls dice and got : " + value);
+            System.out.println("player rolls dice and got : " + value);
             switch (num) {
                 case SNAKE:
                     //System.out.println("GOT SNAKE");
                     position = position - value;
                     if (position < 0) {
                         position = 0;
-                        System.out.println("1st position : " + position);
-                        break;
                     }
+                    break;
+
                 case LADDER:
                     //System.out.println("GOT LADDER");
-                    position = value + position;
+                    position = position + value;
                     if (position > WIN) {
                         position = previousPosition;
-                        System.out.println("2nd position :" + position);
-                        break;
                     }
-                    else if (WIN == position){
-                        System.out.println("player Wins");
-                    }
+                    break;
+                case NO_PLAY:
+                   // System.out.println("player does not move");
 
             }
+            numberOfDiceRolls++;
+            System.out.println("player position : " + position);
         }
+        System.out.println(numberOfDiceRolls + " Times PLAYER rolls dice");
     }
+
 }
 
